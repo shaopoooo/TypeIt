@@ -16,13 +16,15 @@ You will also see any lint errors in the console.
 4/24 英文基礎UI,timer相關,英文文章API串接
 
 
-###剩餘工作
-Redux改寫
-中文基礎UI
-中文API串接
-頁面Routing
-donateAPI
-廣告API(?)
-UI美化&CSS特效
-AWS部屬
+###  `剩餘工作`
+
+
+Redux改寫<br>
+中文基礎UI<br>
+中文API串接<br>
+頁面Routing<br>
+donateAPI<br>
+廣告API(?)<br>
+UI美化&CSS特效<br>
+AWS部屬<br>
 
