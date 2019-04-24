@@ -134,7 +134,7 @@ class App extends Component {
       <div className='btnarea1' onClick={this.timerStop}>
         timer stop
       </div>
-      <div className='btnarea2' onClick={}>
+      <div className='btnarea2'>
         change article.
       </div>
     </div>
