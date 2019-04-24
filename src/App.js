@@ -1,107 +1,145 @@
 import React, { Component } from 'react';
-
-const DEAFULT_QUERY = 'redux';
-
-const PATH_BASE     = 'https://hn.algolia.com/api/v1';
-const PATH_SEARCH   = '/search';
-const PARAM_SEARCH  = 'query=';
-
-const url=`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEAFULT_QUERY}`;
-
-console.log(url);
+import './App.css';
+import './index.css';
 
 class App extends Component {
-  constructor(props){
-    super(props);
+ constructor(props){
+  super(props);
 
-    this.state ={
-      result: null,
-      searchTerm:DEAFULT_QUERY,
+  this.fetchartical   = this.fetchartical.bind(this);
+  this.onTyping       = this.onTyping.bind(this);
+  this.timerStart     = this.timerStart.bind(this);
+  this.timerStop      = this.timerStop.bind(this);
+
+  this.state = {
+      article   :"no article.",
+      articleArry:"no article.",
+      correct:true,
+      input :'',
+      started:false,
+      inputShow:'',
+      inputNum:0,
+      wpm:0,
+      changedNum:0,
+      timer:0,
+      timerId:'',
+      page:''
+    };
+  }
+
+  fetchartical(){
+    //fetch
+    const article = "Scrum is a framework within which people can address complex adaptive problems, while productively and creatively delivering products of the highest possible value.";
+    //article to arry
+    var tmparticle = article.split("");
+    this.setState({
+      article:article,
+      articleArry:tmparticle
+    })
+
+  }
+  timerStart(){
+    var timerInerval = setInterval(()=>{
+      this.setState({
+        timer:this.state.timer + 1,
+        timerId:timerInerval,
+      })
+    },1000);
+  }
+  timerStop(){
+    clearInterval(this.state.timerId);
+    this.setState({
+          started:false,
+    });
+  }
+
+  onTyping(event){
+    const { started, timer ,articleArry} = this.state;
+    //timer on
+    if(!started){
+        this.setState({
+          started:true,
+        });
+        this.timerStart();
+    }
+    //counting rpm
+
+    //check array
+    const inputTerm = event.target.value.split("");
+    var tmp = true;
+
+    for(var i=0;i<inputTerm.length;i++){
+      if(articleArry[i]==inputTerm[i]){
+        tmp=true;
+      }
+      else{
+        tmp=false;
+        break;
+      }
     }
 
-    this.setSearchTopStories = this.setSearchTopStories.bind(this);
-    this.onSearchChange = this.onSearchChange.bind(this);
-    this.onDismiss = this.onDismiss.bind(this);
-    
+    var wpm = parseInt(inputTerm.length)/parseInt(this.state.timer)*12;
+    wpm = wpm.toFixed(2);
+    //output
+    this.setState({
+        correct   : tmp,
+        inputArry : inputTerm,
+        inputNum  : inputTerm.length,
+        wpm       : wpm
+    });
   }
 
-  setSearchTopStories(result){
-    this.setState({ result });
+ componentDidMount(){
+    this.fetchartical();
+ }
 
-    console.log(this.state.result);
-  }
+ componentDidUpdate(){
+  //console.log(this.state.inputTerm);
+ }
 
-  onSearchChange(){
-
-  }
-
-  onDismiss(){
-
-  }
-
-  componentDidMount() {
-    const {searchTerm} = this.state;
-
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
-        .then(response => response.json())
-        .then(result => this.setSearchTopStories(result))
-        .catch(error => error);
-
-  }
-
-  render() {
-
-    const {result, searchTerm} = this.state;
-
-    console.log(this.state);
-
-    if(!result) {return null;}
-
-    return(
-      <div className='page'>
-        <Table
-          list = {result.hits}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-        />
+ render() {
+  return(
+    <div className='container'>
+      <div className='naviarea'>
+        <nav>
+          <ul>
+            <li>
+              <a href='#'>English</a>
+            </li>
+            <li>
+              <a href='#'>Chinese</a>
+            </li>
+            <li>
+              <a href='#'>code</a>
+            </li>
+          </ul>
+        </nav>
       </div>
-    )
-  } 
-}
-
-class Table extends Component{
-  render() {
-     const {list, pattern, onDismiss} = this.props;
-     
-     return(
-      <div>
-        {list.filter(isSearched(pattern)).map(item =>
-          <div key={item.objectID}>
-            <span>
-              <a href={item.url}>{item.title}</a>
-            </span>
-            <span>{item.author}</span>
-            <span>{item.num_comments}</span>
-            <span>{item.points}</span>
-            <span>
-              <button
-                onClick={() => onDismiss()}
-                type="button"
-              >
-                Dismiss
-              </button>
-            </span>
-          </div>
-          )}
+      <div className='articalarea'>
+        <textarea className='typebox' readOnly='ture' value={this.state.article}/>
       </div>
-    )
-  }
-}
 
-function isSearched(searchTerm){
-  return function (item){
-    return searchTerm.toLowerCase();
-  }
+      <div className='typearea'>
+        <textarea className={"typebox " + (this.state.correct? 'Green':'Red')} type ='text' onChange={this.onTyping} placeholder="type here to start"/>
+      </div>
+
+      <div className='infoarea1'>
+        <h3>timer:{this.state.timer}</h3>
+        <h3>letter:{this.state.inputNum}</h3>
+        <h3>WPM:{this.state.wpm}</h3>
+      </div>
+      <div className='infoarea2'>
+        Ad here
+      </div>
+      <div className='btnarea1' onClick={this.timerStop}>
+        timer stop
+      </div>
+      <div className='btnarea2' onClick={}>
+        change article.
+      </div>
+    </div>
+  );
+ }
 }
 
 export default App;

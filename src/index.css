@@ -1,14 +1,99 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+	--primary: #36b828;
+	--secondary:#88D498;
+	--third:#0AAFF1;
+	--waring:#F08080;
+	--dark: #072A24;
+	--light:#fff;
+	--shadow:0 1px 5px rgba(104,104,104,0.8);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+html{
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-erif;
+	color: var(--dark);
+}
+
+body {
+	margin: 30px 50px;
+	line-height: 1.4;
+}
+
+.container {
+	display: grid;
+	grid-gap: 1rem;
+	grid-template-columns: 3fr 1fr;
+	grid-template-rows 	 :1fr 1fr 1fr 1fr 1fr;
+	grid-template-areas: 
+	"naviarea naviarea"
+	"articalarea infoarea1"
+	"articalarea infoarea2"
+	"typearea btnarea1"
+	"typearea btnarea2";
+
+}
+
+.naviarea{
+	grid-area: naviarea;
+}
+
+.articalarea {
+	grid-area   :articalarea;	
+	background  :var(--secondary);
+	padding 	:1rem;
+	border-radius: 25px;
+	min-height: 100px;
+}
+
+.typearea {
+	grid-area: typearea;
+	background  :var(--secondary);
+	padding 	:1rem;
+	border-radius: 25px;
+	min-height: 100px;
+}
+
+.typebox {
+	background: var(--seconary);
+	width: 90%;
+	height:80%;
+	margin: 1rem;
+	resize: none;
+	border:none;
+	font-size: 20px;
+}
+
+.Green {
+	color: var(--dark);
+}
+.Red {
+	color: var(--waring);
+}
+
+.infoarea1 {
+	grid-area: infoarea1;
+	background  :var(--third);
+	padding 	:1rem;
+	border-radius: 25px;	
+}
+
+.infoarea2 {
+	grid-area: infoarea2;
+	background  :var(--third);
+	padding 	:1rem;
+	border-radius: 25px;	
+}
+
+.btnarea1 {
+	grid-template-areas: btnarea1;
+	background  :var(--third);
+	padding 	:1rem;
+	border-radius: 25px;
+}
+
+.btnarea2 {
+	grid-template-areas: btnarea2;
+	background  :var(--third);
+	padding 	:1rem;
+	border-radius: 25px;
 }
