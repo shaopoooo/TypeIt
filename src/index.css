@@ -23,9 +23,8 @@ body {
 	display: grid;
 	grid-gap: 1rem;
 	grid-template-columns: 3fr 1fr;
-	grid-template-rows 	 :1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows 	 :0.8fr 0.8fr 0.8fr 0.8fr;
 	grid-template-areas: 
-	"naviarea naviarea"
 	"articalarea infoarea1"
 	"articalarea infoarea2"
 	"typearea btnarea1"
@@ -89,6 +88,7 @@ body {
 	background  :var(--third);
 	padding 	:1rem;
 	border-radius: 25px;
+	text-align: center;
 }
 
 .btnarea2 {
@@ -96,4 +96,17 @@ body {
 	background  :var(--third);
 	padding 	:1rem;
 	border-radius: 25px;
+	text-align: center;
+}
+
+.tocenter{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+.tocenter > h4{
+	margin-block-start:10%;
+	margin-block-end:10%;
 }
