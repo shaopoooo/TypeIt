@@ -35,7 +35,8 @@ class App extends Component {
     //fetch
     const url     ="https://newsapi.org/v2/top-headlines?";
     const country ="country=us&"
-    const key     ="apiKey=1c285c377280404cbfba2dbfaa5d3bec";
+    const key     =`apiKey=${process.env.REACT_APP_NEWS_API_KEY}`;
+    //console.log(key);  
 
     fetch(`${url}${country}${key}`)
       .then(response => response.json())
